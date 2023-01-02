@@ -23,3 +23,29 @@ ul {
   z-index: 5;
   /* backdrop-filter: blur(4px); */
 }
+button {
+  cursor: pointer;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  color: #fff;
+  background: orangered;
+  font-size: 1rem;
+  border: none;
+  text-transform: capitalize;
+  font-weight: 600;
+  transition: all ease-out 0.3s;
+}
+button:hover {
+  opacity: 0.8;
+}
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+.arrow {
+  color: #000;
+  font-size: 1.1rem;
+  cursor: pointer;
+}

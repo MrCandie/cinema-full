@@ -5,8 +5,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
+import { useRouter } from "next/router";
 
 export default function MovieList() {
+  const router = useRouter();
   return (
     <Swiper
       pagination={{
@@ -18,7 +20,7 @@ export default function MovieList() {
     >
       <ul className={classes.list}>
         {moviesList.slice(0, 3).map((item) => (
-          <li>
+          <li onClick={() => router.push(`/movies/${item.id}`)}>
             <SwiperSlide>
               <div className={classes.image}>
                 <img alt="movie" src={item.image} />

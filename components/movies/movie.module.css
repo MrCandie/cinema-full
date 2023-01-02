@@ -23,8 +23,126 @@
   height: 200px;
   object-fit: cover;
 }
+.movie {
+  width: 40%;
+  margin: auto;
+  position: relative;
+}
+.images {
+  width: 100%;
+  position: relative;
+}
+.menu {
+  padding: 1rem;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+}
+.menu span {
+  background: #fdf6e7;
+  color: orangered;
+  padding: 0.6rem;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.images img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+.content {
+  background: #fff;
+  padding: 1rem;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  z-index: 10;
+  position: absolute;
+  width: 100%;
+  bottom: -40%;
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.title h4,
+.title p {
+  text-transform: capitalize;
+  color: #000;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+.star {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.star span {
+  font-size: 1.4rem;
+  color: red;
+}
+.rating p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: red;
+}
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+.description h4 {
+  text-transform: capitalize;
+  color: #000;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+.description p {
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+.cast {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+.cast h4 {
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.wrapper p {
+  background: #fdf6e7;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  color: #000;
+  font-weight: 500;
+  text-transform: capitalize;
+}
 @media (max-width: 850px) {
-  .section {
+  .section,
+  .movie {
     width: 100%;
   }
 }
