@@ -25,13 +25,13 @@ export default function Navigation() {
         <span>
           <BsFillBookmarkFill />
         </span>
-        <Link href="">watchlist</Link>
+        <Link href="/watchlist">watchlist</Link>
       </div>
       <div className={classes.link}>
         <span>
           <AiOutlineUser />
         </span>
-        <Link href="">profile</Link>
+        <Link href="/profile">profile</Link>
       </div>
     </nav>
   );

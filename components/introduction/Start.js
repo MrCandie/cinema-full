@@ -14,7 +14,7 @@ export default function Start() {
         <h1>select your preferred movie seat</h1>
         <p>have a drive-in movie experience with your friends and family</p>
         <div className={classes.start}>
-          <Link href="/">get started</Link>
+          <Link href="/account/register">get started</Link>
         </div>
       </div>
     </section>

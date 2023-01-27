@@ -8,12 +8,17 @@
   margin-bottom: 5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
 }
 .list li {
   width: 47%;
+  cursor: pointer;
+  transition: all ease-out 0.3s;
+}
+.list li:hover {
+  opacity: 0.9;
 }
 .image {
   width: 100%;
