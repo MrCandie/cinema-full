@@ -1,0 +1,28 @@
+.form {
+  width: 40%;
+  margin: auto;
+  background: #fdf6e7;
+  padding: 1rem;
+}
+.form form {
+  width: 80%;
+  margin: auto;
+}
+.form form input {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid #ccc;
+  font-size: 1rem;
+  color: #000;
+  outline: ;
+}
+.form form input:focus {
+  border: 4px solid #ccc;
+  outline: none;
+}
+@media (max-width: 850px) {
+  .form {
+    width: 100%;
+  }
+}
