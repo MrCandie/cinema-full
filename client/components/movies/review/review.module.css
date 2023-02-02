@@ -1,0 +1,80 @@
+.section {
+  width: 40%;
+  margin: auto;
+  background: #fdf6e7;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  border-radius: 1rem;
+}
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.detail label {
+  font-size: 1rem;
+  color: #000;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.detail input,
+.detail textarea {
+  border-radius: 1rem;
+  padding: 0.8rem;
+  border: 1px solid orange;
+  outline: none;
+  font-size: 1rem;
+}
+.container form {
+  width: 100%;
+  padding: 1rem;
+}
+.reviewContainer {
+  padding: 1rem;
+  width: 100%;
+}
+.reviewContainer ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  max-height: 400px;
+  overflow: scroll;
+}
+.reviewContainer ul li {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 1px 4px 3px #888888;
+}
+.review,
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+.wrap {
+}
+.wrap p,
+.review p {
+  font-size: 1rem;
+  color: #000;
+  font-weight: 500;
+  text-transform: capitalize;
+  flex: 1;
+}
+.review h5 {
+  width: 60%;
+}
+
+@media (max-width: 850px) {
+  .section,
+  .movie {
+    width: 100%;
+  }
+}

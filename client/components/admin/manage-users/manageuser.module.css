@@ -1,0 +1,12 @@
+.section {
+  width: 40%;
+  margin: auto;
+  background: #fdf6e7;
+  padding: 2rem;
+}
+@media (max-width: 850px) {
+  .section {
+    width: 100%;
+    padding: 1rem;
+  }
+}

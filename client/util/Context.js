@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { createContext, useState } from "react";
 import { moviesList } from "../data/data";
 
@@ -9,10 +10,38 @@ export const CartContext = createContext({
   deleteFromCart: () => {},
   getTotalCost: () => {},
   setCartItem: (item) => {},
+  login: () => {},
+  logout: () => {},
+  isLoggedIn: false,
+  token: "",
+  role: "user",
+  userId: "",
+  user: "",
 });
 
 export default function CartProvider({ children }) {
   const [cartProduct, setCartProduct] = useState([]);
+  const [token, setToken] = useState("");
+  const [role, setRole] = useState("");
+  const [userId, setUserId] = useState("");
+  const [user, setUser] = useState("");
+
+  const router = useRouter();
+
+  function login(token, role, id, user) {
+    setToken(token);
+    setRole(role);
+    setUserId(id);
+    setUser(user);
+    router.replace("/movies");
+  }
+
+  function logout() {
+    setToken(null);
+    router.replace("/account/login");
+  }
+
+  const isLoggedIn = !!token;
 
   function getProductQuantity(id) {
     const quantity = cartProduct.find((item) => item.id === id)?.quantity;
@@ -90,6 +119,13 @@ export default function CartProvider({ children }) {
     removeOneFromCart,
     deleteFromCart,
     getTotalCost,
+    login,
+    logout,
+    token,
+    isLoggedIn,
+    role,
+    userId: userId,
+    user,
   };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

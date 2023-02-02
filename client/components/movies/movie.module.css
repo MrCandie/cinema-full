@@ -95,13 +95,20 @@
   gap: 1rem;
 }
 .star span {
-  font-size: 1.4rem;
-  color: red;
+  font-size: 1rem;
+  color: green;
 }
 .rating p {
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+.rating p span {
+  font-size: 0.7rem;
   font-weight: 500;
-  color: red;
+  color: orangered;
+  display: flex;
+  align-items: center;
 }
 .description {
   display: flex;
@@ -144,6 +151,7 @@
   color: #000;
   font-weight: 500;
   text-transform: capitalize;
+  font-size: 0.8rem;
 }
 @media (max-width: 850px) {
   .section,

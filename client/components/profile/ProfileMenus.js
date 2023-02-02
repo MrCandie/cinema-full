@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import classes from "./profile.module.css";
 
@@ -8,8 +8,11 @@ import { AiOutlineBell } from "react-icons/ai";
 import { TfiWorld } from "react-icons/tfi";
 import { AiOutlineLogout } from "react-icons/ai";
 import { AiFillSetting } from "react-icons/ai";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { CartContext } from "../../util/Context";
 
 export default function ProfileMenus() {
+  const authCtx = useContext(CartContext);
   return (
     <div className={classes.menu}>
       <Link href="">
@@ -34,18 +37,20 @@ export default function ProfileMenus() {
           <FaGreaterThan />
         </span>
       </Link>
-      <Link href="">
-        <div className={classes.container}>
+      {authCtx.role === "admin" && (
+        <Link href="/admin">
+          <div className={classes.container}>
+            <span>
+              <MdOutlineAdminPanelSettings />
+            </span>
+            <h5>Admin</h5>
+          </div>
           <span>
-            <TfiWorld />
+            <FaGreaterThan />
           </span>
-          <h5>languages</h5>
-        </div>
-        <span>
-          <FaGreaterThan />
-        </span>
-      </Link>
-      <Link href="">
+        </Link>
+      )}
+      <div onClick={() => authCtx.logout()} className={classes.admin}>
         <div className={classes.container}>
           <span>
             <AiOutlineLogout />
@@ -55,7 +60,7 @@ export default function ProfileMenus() {
         <span>
           <FaGreaterThan />
         </span>
-      </Link>
+      </div>
       <Link href="">
         <div className={classes.container}>
           <span>

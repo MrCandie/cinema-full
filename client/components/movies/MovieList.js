@@ -12,7 +12,7 @@ export default function MovieList({ movies }) {
   return (
     <ul className={classes.list}>
       {movies.map((item, i) => (
-        <li key={i} onClick={() => router.push(`/movies/${item.id}`)}>
+        <li key={item._id} onClick={() => router.push(`/movies/${item._id}`)}>
           <div className={classes.image}>
             <img alt="movie" src={item.image} />
           </div>

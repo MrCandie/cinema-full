@@ -1,0 +1,45 @@
+.section {
+  width: 30%;
+  z-index: 60;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 1rem;
+  /* padding: 1rem; */
+}
+/* .container {
+  width: 80%;
+  margin: auto;
+} */
+.container form {
+  /* width: 90%; */
+  padding: 1rem;
+}
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.detail label {
+  font-size: 1rem;
+  color: #000;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.detail input,
+.detail textarea {
+  border-radius: 1rem;
+  padding: 0.8rem;
+  border: 1px solid orange;
+  outline: none;
+  font-size: 1rem;
+}
+
+@media (max-width: 850px) {
+  .section {
+    width: 80%;
+  }
+}
