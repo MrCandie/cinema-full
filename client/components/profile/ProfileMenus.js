@@ -61,7 +61,7 @@ export default function ProfileMenus() {
           <FaGreaterThan />
         </span>
       </div>
-      <Link href="">
+      <Link href="/setting">
         <div className={classes.container}>
           <span>
             <AiFillSetting />

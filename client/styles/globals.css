@@ -5,10 +5,15 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease-out;
 }
 a {
   text-decoration: none;
   color: #000;
+  transition: all 0.3s ease-out;
+}
+a:hover {
+  opacity: 0.8;
 }
 ul {
   list-style: none;
@@ -39,7 +44,7 @@ button,
 }
 button:hover,
 .empty a:hover {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 button:disabled {
   background: #ccc;
@@ -91,6 +96,13 @@ button:disabled {
 .review a {
   color: #fff;
 }
+.review span {
+  font-size: 0.8rem;
+  color: orange;
+}
+.review p {
+  font-size: 1rem;
+}
 
 .center {
   display: flex;
@@ -117,4 +129,17 @@ button:disabled {
 ::-webkit-scrollbar-thumb {
   background: orangered;
   border-radius: 10px;
+}
+
+.section {
+  width: 40%;
+  margin: auto;
+  background: #fdf6e7;
+  padding: 2rem;
+}
+@media (max-width: 850px) {
+  .section {
+    width: 100%;
+    padding: 1rem;
+  }
 }

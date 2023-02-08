@@ -1,5 +1,6 @@
 const Movie = require("./../model/movieModel");
 const catchAsync = require("./../utils/catch-async");
+const AppError = require("./../utils/app-error");
 
 exports.createMovie = catchAsync(async (req, res, next) => {
   const newUser = await Movie.create(req.body);
@@ -26,6 +27,9 @@ exports.getAllMovies = catchAsync(async (req, res, next) => {
 
 exports.getMovie = catchAsync(async (req, res, next) => {
   const movie = await Movie.findById(req.params.id);
+
+  if (!movie) next(new AppError("Movie not found", 404));
+
   res.status(200).json({
     status: "success",
     data: {
@@ -39,6 +43,7 @@ exports.updateMovie = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+  if (!movie) next(new AppError("Movie not found", 404));
   res.status(200).json({
     status: "success",
     data: {
@@ -49,6 +54,7 @@ exports.updateMovie = catchAsync(async (req, res, next) => {
 
 exports.deleteMovie = catchAsync(async (req, res, next) => {
   const movie = await Movie.findByIdAndDelete(req.params.id);
+  if (!movie) next(new AppError("Movie not found", 404));
   res.status(204).json({
     status: "success",
     data: null,

@@ -38,6 +38,13 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
+reviewSchema.index(
+  { movie: 1, user: 1 },
+  {
+    unique: true,
+  }
+);
+
 reviewSchema.statics.calcAverageRatings = async function (movieId) {
   const stats = await this.aggregate([
     {
@@ -52,10 +59,17 @@ reviewSchema.statics.calcAverageRatings = async function (movieId) {
     },
   ]);
   console.log(stats);
-  await Movie.findByIdAndUpdate(movieId, {
-    ratingsAverage: stats[0].avgRating,
-    ratingsQuantity: stats[0].nRating,
-  });
+  if (stats.length > 0) {
+    await Movie.findByIdAndUpdate(movieId, {
+      ratingsAverage: stats[0].avgRating,
+      ratingsQuantity: stats[0].nRating,
+    });
+  } else {
+    await Movie.findByIdAndUpdate(movieId, {
+      ratingsAverage: 0,
+      ratingsQuantity: 0,
+    });
+  }
 };
 
 reviewSchema.post("save", function () {

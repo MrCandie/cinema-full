@@ -1,7 +1,4 @@
-import React, { Fragment, useContext, useState } from "react";
-import Link from "next/link";
-
-import { Rating } from "react-simple-star-rating";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 
 import classes from "./movie.module.css";
 import { BsArrowLeft } from "react-icons/bs";
@@ -16,7 +13,10 @@ import Deletemovie from "../UI/forms/delete-movie/Deletemovie";
 import Review from "./review/Review";
 import LoadReview from "./review/LoadReview";
 
-export default function MovieDetail({ data }) {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+export default function MovieDetail({ data, isList, listId }) {
   const movieContext = useContext(CartContext);
   const router = useRouter();
 
@@ -40,8 +40,18 @@ export default function MovieDetail({ data }) {
             <span onClick={() => router.replace("/movies")}>
               <BsArrowLeft />
             </span>
-            <span>
-              <BsBookmark />
+            <span
+              onClick={() => {
+                if (isList) {
+                  toast.warning(`${data.name} removed from watchlist`);
+                  movieContext.removeWatchlist(listId);
+                } else {
+                  toast.success(`${data.name} added to watchlist`);
+                  movieContext.addWatchList(data._id);
+                }
+              }}
+            >
+              {isList ? <BsFillBookmarkFill /> : <BsBookmark />}
             </span>
           </div>
         </div>
@@ -104,6 +114,7 @@ export default function MovieDetail({ data }) {
           )}
         </div>
       </section>
+      <ToastContainer position="top-right" autoClose={2000} />
       {show && <UpdateMovie setShow={setShow} data={data} />}
       {show1 && <Deletemovie data={data} setShow={setShow1} />}
       {show2 && <Review setShow={setShow2} movie={data} />}

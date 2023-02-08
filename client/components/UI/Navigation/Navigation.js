@@ -5,34 +5,41 @@ import { BsHouseDoor } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
+import { CiShoppingCart } from "react-icons/ci";
 
 export default function Navigation() {
   return (
     <nav className={classes.nav}>
-      <div className={classes.link}>
+      <Link href="/" className={classes.link}>
         <span>
           <BsHouseDoor />
         </span>
-        <Link href="/">home</Link>
-      </div>
-      <div className={classes.link}>
+        <h4>home</h4>
+      </Link>
+      <Link href="/movies" className={classes.link}>
         <span>
           <BsSearch />
         </span>
-        <Link href="/movies">search</Link>
-      </div>
-      <div className={classes.link}>
+        <h4>search</h4>
+      </Link>
+      <Link href="/watchlist" className={classes.link}>
         <span>
           <BsFillBookmarkFill />
         </span>
-        <Link href="/watchlist">watchlist</Link>
-      </div>
-      <div className={classes.link}>
+        <h4>watchlist</h4>
+      </Link>
+      <Link href="/checkout" className={classes.link}>
+        <span>
+          <CiShoppingCart />
+        </span>
+        <h4>orders</h4>
+      </Link>
+      <Link href="/profile" className={classes.link}>
         <span>
           <AiOutlineUser />
         </span>
-        <Link href="/profile">profile</Link>
-      </div>
+        <h4>profile</h4>
+      </Link>
     </nav>
   );
 }

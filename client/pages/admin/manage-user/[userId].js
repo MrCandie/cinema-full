@@ -19,7 +19,7 @@ export default function Userdetail() {
         setUser(response.data.data.user);
       } catch (err) {
         // setLoading(false);
-        toast.error(err.message);
+        toast.error("An unknown error occurred...Try again");
         return;
       }
     }

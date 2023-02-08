@@ -1,6 +1,19 @@
 import { useRouter } from "next/router";
 import { createContext, useState } from "react";
 import { moviesList } from "../data/data";
+import {
+  addWatchlists,
+  deleteCart,
+  deleteWatchlists,
+  getAllMovies,
+  postCart,
+  updateCart,
+} from "./http";
+
+async function fetchMovies() {
+  const response = await getAllMovies();
+  return response.data.data.movies;
+}
 
 export const CartContext = createContext({
   items: [],
@@ -17,6 +30,11 @@ export const CartContext = createContext({
   role: "user",
   userId: "",
   user: "",
+  list: "",
+  setCartItem: (item) => {},
+  addWatchList: () => {},
+  removeWatchlist: () => {},
+  setWatchlist: () => {},
 });
 
 export default function CartProvider({ children }) {
@@ -25,6 +43,7 @@ export default function CartProvider({ children }) {
   const [role, setRole] = useState("");
   const [userId, setUserId] = useState("");
   const [user, setUser] = useState("");
+  const [watchlist, setWatchlists] = useState([]);
 
   const router = useRouter();
 
@@ -44,18 +63,33 @@ export default function CartProvider({ children }) {
   const isLoggedIn = !!token;
 
   function getProductQuantity(id) {
-    const quantity = cartProduct.find((item) => item.id === id)?.quantity;
+    const quantity = cartProduct.find((el) => {
+      const movId = el.movie.find((item) => item);
+      return movId.id === id;
+    });
+
     if (quantity === undefined) {
       return 0;
     }
 
-    return quantity;
+    return quantity.quantity;
   }
 
-  function addOneToCart(id) {
+  async function addOneToCart(id) {
+    const movies = await fetchMovies();
     const quantity = getProductQuantity(id);
-    const cartItem = moviesList.find((item) => item.id === id);
+    const cartItem = movies.find((item) => item.id === id);
     if (quantity === 0) {
+      try {
+        const response = await postCart(userId, {
+          id: id,
+          quantity: 1,
+          movie: id,
+          user: userId,
+        });
+      } catch (err) {
+        alert("unknown error occurred...Try again");
+      }
       setCartProduct([
         ...cartProduct,
         {
@@ -67,6 +101,19 @@ export default function CartProvider({ children }) {
         },
       ]);
     } else {
+      const cart = cartProduct.find((el) => {
+        const movie = el.movie.find((item) => item)._id;
+
+        return movie === id;
+      });
+      try {
+        const response = await updateCart(cart.id, {
+          id: id,
+          quantity: quantity + 1,
+        });
+      } catch (err) {
+        alert("unknown error occurred...Try again");
+      }
       setCartProduct(
         cartProduct.map((item) =>
           item.id === id
@@ -83,12 +130,25 @@ export default function CartProvider({ children }) {
     }
   }
 
-  function removeOneFromCart(id) {
+  async function removeOneFromCart(id) {
     const quantity = getProductQuantity(id);
 
     if (quantity === 1) {
       deleteFromCart(id);
     } else {
+      const cart = cartProduct.find((el) => {
+        const movie = el.movie.find((item) => item)._id;
+
+        return movie === id;
+      });
+      try {
+        const response = await updateCart(cart.id, {
+          id: id,
+          quantity: quantity - 1,
+        });
+      } catch (err) {
+        alert("unknown error occurred...Try again");
+      }
       setCartProduct(
         cartProduct.map((item) =>
           item.id === id ? { ...item, quantity: item.quantity - 1 } : item
@@ -97,7 +157,19 @@ export default function CartProvider({ children }) {
     }
   }
 
-  function deleteFromCart(id) {
+  async function deleteFromCart(id) {
+    const cart = cartProduct.find((el) => {
+      const movie = el.movie.find((item) => item)._id;
+
+      return movie === id;
+    });
+
+    try {
+      const response = await deleteCart(cart.id);
+    } catch (err) {
+      alert("unknown error occurred...Try again");
+    }
+
     setCartProduct((cartProduct) =>
       cartProduct.filter((item) => item.id !== id)
     );
@@ -105,12 +177,34 @@ export default function CartProvider({ children }) {
 
   function getTotalCost() {
     let totalCost = 0;
-    cartProduct.map((cartItem) => {
-      const movieData = moviesList.find((item) => item.id === cartItem.id);
-      totalCost += movieData.price * cartItem.quantity;
+    cartProduct.map(async (cartItem) => {
+      const movieData = cartItem.movie?.find((el) => el);
+
+      totalCost += movieData?.price * cartItem.quantity;
     });
 
     return totalCost;
+  }
+
+  function setCartItem(item) {
+    setCartProduct(item);
+  }
+
+  function setWatchlist(item) {
+    setWatchlists(item);
+  }
+
+  async function addWatchList(id) {
+    const response = await addWatchlists({ movie: id, user: userId });
+    setWatchlists((movId) => [...movId, { movie: id, user: userId }]);
+
+    // console.log(id);
+  }
+
+  async function removeWatchlist(id) {
+    const response = await deleteWatchlists(id);
+    console.log(response);
+    setWatchlists((movId) => movId.filter((el) => el.id !== id));
   }
 
   const value = {
@@ -126,6 +220,11 @@ export default function CartProvider({ children }) {
     role,
     userId: userId,
     user,
+    setCartItem,
+    addWatchList,
+    removeWatchlist,
+    setWatchlist,
+    list: watchlist,
   };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

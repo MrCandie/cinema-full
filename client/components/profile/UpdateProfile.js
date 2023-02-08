@@ -21,7 +21,7 @@ export default function UpdateProfile({ user, setShow }) {
     e.preventDefault();
     const userData = {
       name,
-      image,
+      // image,
     };
 
     try {
@@ -48,7 +48,12 @@ export default function UpdateProfile({ user, setShow }) {
       <section className={classes.section}>
         <div className={classes.container}>
           <Header>Update {user.name}</Header>
-          <form onSubmit={updateHandler}>
+          <form
+            // method="patch"
+            // action={`http://localhost:8080/api/v1/users/${user._id}`}
+            enctype="multipart/form-data"
+            onSubmit={updateHandler}
+          >
             <div className={classes.detail}>
               <label>user Name</label>
               <input
@@ -62,8 +67,9 @@ export default function UpdateProfile({ user, setShow }) {
               <label>image</label>
               <input
                 onChange={(e) => setImage(e.target.value)}
-                // value={image}
                 type="file"
+                name="image"
+                // accept="image/*"
               />
             </div>
             <div className="action">

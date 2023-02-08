@@ -39,7 +39,7 @@ export default function AdminMenus() {
           </span>
         </Link>
 
-        <Link href="/admin">
+        <Link href="/admin/manage-reviews">
           <div className={classes.container}>
             <span>
               <MdOutlineReviews />

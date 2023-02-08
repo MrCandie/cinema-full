@@ -17,13 +17,13 @@
   align-items: center;
   justify-content: center;
 }
-.link a {
+.link h4 {
   text-transform: capitalize;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 500;
 }
 .link span {
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: #333;
 }
 @media (max-width: 850px) {

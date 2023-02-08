@@ -20,9 +20,6 @@ export default function Review({ setShow, movie }) {
 
   const handleRating = (rate) => {
     setRating(rate);
-    // setTimeout(() => {
-    //   setShow2(true);
-    // }, 500);
   };
 
   async function reviewHandler(e) {
@@ -41,7 +38,7 @@ export default function Review({ setShow, movie }) {
       setShow(false);
     } catch (err) {
       console.log(err.message);
-      alert(err.message);
+      alert(err.response.data.message);
       setShow(false);
       return;
     }
@@ -79,7 +76,7 @@ export default function Review({ setShow, movie }) {
               <button onClick={() => setShow(false)} type="button">
                 cancel
               </button>
-              <button>update</button>
+              <button>Add</button>
             </div>
           </form>
         </div>

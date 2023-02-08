@@ -4,6 +4,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
+  padding-bottom: 5rem;
 }
 .item {
   width: 100%;
@@ -25,6 +26,7 @@
 .item p,
 .container p {
   font-size: 1rem;
+  text-transform: capitalize;
   margin: 0.5rem 0;
   color: #000;
   font-weight: 500;
