@@ -21,7 +21,7 @@ export default function ForgotPassword({ setShow }) {
     const data = {
       email,
     };
-    console.log(data);
+
     try {
       setLoading(true);
       const response = await forgotPassword(data);
@@ -57,7 +57,7 @@ export default function ForgotPassword({ setShow }) {
               <button onClick={() => setShow(false)} type="button">
                 cancel
               </button>
-              <button>Submit</button>
+              <button>{loading ? "Loading..." : "Submit"}</button>
             </div>
           </form>
         </div>

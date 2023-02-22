@@ -26,7 +26,7 @@ export default function CartItem() {
             {movArr ? (
               movArr.map((el) => (
                 <Fragment>
-                  <div key={el.id} className={classes.image}>
+                  <div key={el._id} className={classes.image}>
                     <div className={classes.cart}>
                       <img alt="cart" src={el.image} />
                     </div>

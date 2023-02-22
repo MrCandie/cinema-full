@@ -27,6 +27,7 @@ export default function Movie() {
     }
     getMovies();
   }, [setList]);
+
   return (
     <Fragment>
       <Header />

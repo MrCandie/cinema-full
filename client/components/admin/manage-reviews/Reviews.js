@@ -16,7 +16,6 @@ export default function Reviews() {
       try {
         const response = await getAllReviews();
         setData(response.data.data.reviews);
-        console.log(response);
       } catch (err) {
         console.log(err);
         toast.error("An unknown error occurred...Try again!.");

@@ -6,7 +6,7 @@ export default function ReviewItem({ reviews }) {
   if (!reviews) {
     return <Spinner />;
   }
-  //   console.log(reviews);
+
   return (
     <Fragment>
       {reviews.reverse().map((item) => {

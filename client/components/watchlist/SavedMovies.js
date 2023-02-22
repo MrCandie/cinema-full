@@ -8,7 +8,6 @@ import classes from "./watchlist.module.css";
 
 export default function SavedMovies() {
   const movieCtx = useContext(CartContext);
-  // console.log(movieCtx.list);
 
   const movArr = [];
   movieCtx.list.map((item) => {

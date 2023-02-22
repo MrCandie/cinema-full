@@ -24,7 +24,6 @@ export default function Profile() {
         setUser(response.data.data.user);
       } catch (err) {
         setLoading(false);
-        setShow(false);
         toast.error(err.message);
         console.log(err.message);
       }

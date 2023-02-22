@@ -8,18 +8,17 @@ export async function getAllMovies() {
 }
 
 export async function uploadMovie(data) {
-  // const response = await axios.post(API_URL, data);
-  // return response;
-  const response = await fetch(API_URL, {
-    // mode: "cors",
-    method: "POST",
+  const response = await axios.post(API_URL, data);
+  return response.data;
+}
+
+export async function uploadMovieCover(data) {
+  const response = await axios.post(API_URL + "/uploadMovieCover", data, {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
     },
-    body: JSON.stringify(data),
   });
-  //   const user = response.json();
-  return await response.json();
+  return response.data;
 }
 
 export async function updatemovie(id, data) {
@@ -54,10 +53,16 @@ export async function updateUserAdmin(id, data) {
   return response;
 }
 
-export async function updateUser(id, data) {
-  // const response = await axios.patch(API_URL_USER + `/${id}`, data);
-  // return response;
+export async function uploadProfilePicture(data) {
+  const response = await axios.post(API_URL_USER + "/uploadProfile", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+}
 
+export async function updateUser(id, data) {
   const response = await axios({
     method: "patch",
     url: API_URL_USER + `/${id}`,

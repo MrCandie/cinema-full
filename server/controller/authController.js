@@ -20,8 +20,8 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRESIN * 24 * 60 * 60 * 1000
     ),
-    secure: true,
-    httpOnly: true,
+    // secure: true,
+    httpOnly: false,
   };
   // if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
@@ -45,10 +45,12 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
   });
-  // const url = `${req.protocol}://${req.get("host")}/movies`;
-  // console.log(url);
-  // const response = await new Email(newUser, url).sendWelcome();
-  // console.log(response);
+  const url = `${req.protocol}://${req.get("host")}/movies`;
+  try {
+    const response = await new Email(newUser, url).sendWelcome();
+  } catch (err) {
+    console.log(err);
+  }
   createSendToken(newUser, 201, res);
 });
 
@@ -112,10 +114,11 @@ exports.restrictTo =
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const { email } = req.body;
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ email: email }).select("+password");
 
-  if (!user)
+  if (!user) {
     return next(new AppError("Invalid email address. Try again!", 400));
+  }
 
   const token = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
@@ -124,15 +127,9 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     "host"
   )}/api/v1/users/resetPassword/${token}`;
 
-  const message = `Forgot your passsord? Submit a PATCH request with your new password and passwordConfirm to ${resetUrl}\nIf you didn't forget your password, please ignore this email`;
-
   try {
-    // await sendEmail({
-    //   subject: "Password reset (valid for 10minutes)",
-    //   email: user.email,
-    //   message,
-    // });
-    res.status(200).json({
+    await new Email(user, resetUrl).sendPasswordReset();
+    return res.status(200).json({
       status: "success",
       message: "reset token sent to email",
     });
@@ -158,8 +155,6 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     },
     req.body
   ).select("+password");
-  console.log(user);
-
   if (!user) next(new AppError("Token is invalid or expired", 400));
 
   user.password = req.body.password;
@@ -172,4 +167,20 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 
   next();
+});
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  const { password, passwordConfirm, currentPassword } = req.body;
+  const user = await User.findById(req.params.id).select("+password");
+
+  if (!(await user.correctPassword(currentPassword, user.password))) {
+    return next(new AppError("Incorrect password", 401));
+  }
+
+  user.password = password;
+  user.passwordConfirm = passwordConfirm;
+
+  await user.save();
+
+  createSendToken(user, 200, res);
 });

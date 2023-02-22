@@ -76,7 +76,9 @@ export default function Login() {
             <input ref={passwordRef} type="password" />
             <p onClick={() => setShow(true)}>Forgot password?</p>
           </div>
-          <button>log in</button>
+          <button disabled={loading}>
+            {loading ? "Loading..." : "log in"}
+          </button>
         </form>
         <div className={classes.register}>
           <button>sign in with google</button>

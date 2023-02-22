@@ -10,7 +10,6 @@ exports.setMovieId = (req, res, next) => {
 
 exports.createReview = catchAsync(async (req, res, next) => {
   const newReview = await Review.create(req.body);
-  console.log(newReview);
 
   res.status(201).json({
     status: "success",
@@ -40,7 +39,6 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
 });
 
 exports.getReview = catchAsync(async (req, res, next) => {
-  console.log(req.params.id);
   const review = await Review.findById(req.params.id)
     .populate({
       path: "movie",

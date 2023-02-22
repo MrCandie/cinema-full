@@ -15,7 +15,7 @@ export default function ProfileMenus() {
   const authCtx = useContext(CartContext);
   return (
     <div className={classes.menu}>
-      <Link href="">
+      <Link href="/ticket">
         <div className={classes.container}>
           <span>
             <BsTag />

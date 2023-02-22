@@ -17,6 +17,8 @@ router
   .post(movieController.createMovie)
   .get(movieController.getAllMovies);
 
+router.post("/uploadMovieCover", movieController.uploadMovieImage);
+
 router
   .route("/:id")
   .get(movieController.getMovie)

@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import classes from "./uploadmovie.module.css";
-import { uploadMovie } from "../../../util/http";
+import { uploadMovie, uploadMovieCover } from "../../../util/http";
 
 export default function Uploadmovie() {
   const router = useRouter();
@@ -30,26 +30,27 @@ export default function Uploadmovie() {
       price,
       description,
       time,
-      image,
+      image: `/images/movies/${image.name}`,
       casts: movieCast,
     };
 
     try {
       setLoading(true);
+      const picture = await uploadMovieCover({ image });
       const response = await uploadMovie(data);
       if (response.status !== "success") {
         setLoading(false);
         return toast.error(response.message);
       }
       toast.success(response.message);
-      console.log(response);
       setLoading(false);
+      router.replace("/admin");
     } catch (err) {
+      console.log(err);
       setLoading(false);
       toast.error(err.message);
       return;
     }
-    console.log(data);
   }
   function castHandler() {
     const cast = casts;
@@ -114,8 +115,7 @@ export default function Uploadmovie() {
             <div className={classes.detail}>
               <label>movie image</label>
               <input
-                onChange={(e) => setImage(e.target.value)}
-                value={image}
+                onChange={(e) => setImage(e.target.files[0])}
                 type="file"
               />
             </div>

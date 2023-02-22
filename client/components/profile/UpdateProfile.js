@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import classes from "./../UI/forms/update-movie/updatemovie.module.css";
 import Spinner from "../UI/spinner/Spinner";
-import { updateUser } from "../../util/http";
+import { updateUser, uploadProfilePicture } from "../../util/http";
 
 export default function UpdateProfile({ user, setShow }) {
   if (!user) {
@@ -21,11 +21,12 @@ export default function UpdateProfile({ user, setShow }) {
     e.preventDefault();
     const userData = {
       name,
-      // image,
+      image: `/images/user/${image.name}`,
     };
 
     try {
       setLoading(true);
+      const picture = await uploadProfilePicture({ image });
       const response = await updateUser(user._id, userData);
       setLoading(false);
       toast.success(response.data.status, {
@@ -33,12 +34,11 @@ export default function UpdateProfile({ user, setShow }) {
         autoClose: 500,
       });
       setShow(false);
-      console.log(response);
     } catch (err) {
       setLoading(false);
       setShow(false);
       toast.error(err.message);
-      console.log(err.message);
+      console.log(err);
     }
   }
 
@@ -66,10 +66,10 @@ export default function UpdateProfile({ user, setShow }) {
             <div className={classes.detail}>
               <label>image</label>
               <input
-                onChange={(e) => setImage(e.target.value)}
+                onChange={(e) => setImage(e.target.files[0])}
                 type="file"
                 name="image"
-                // accept="image/*"
+                accept="image/*"
               />
             </div>
             <div className="action">

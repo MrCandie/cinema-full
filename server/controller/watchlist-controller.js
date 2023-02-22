@@ -4,7 +4,6 @@ const AppError = require("./../utils/app-error");
 
 exports.createWatchList = catchAsync(async (req, res, next) => {
   const newWatch = await WatchList.create(req.body);
-  console.log(newWatch);
 
   res.status(201).json({
     status: "success",

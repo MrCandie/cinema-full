@@ -63,7 +63,7 @@ export default function MovieDetail({ data, isList, listId }) {
           <div className={classes.rating}>
             <div className="review">
               <p>
-                {data.ratingsAverage}
+                {data.ratingsAverage.toFixed(1)}
                 <span>
                   <AiFillStar />
                 </span>

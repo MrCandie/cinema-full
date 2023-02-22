@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: "/images/user.jpg",
+      default: "/images/default.jpg",
     },
     password: {
       type: String,
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
     passwordConfirm: {
       type: String,
       required: [true, "please confirm your password"],
-      minlength: [8, "password cannot be less than 8 characters"],
+      // minlength: [8, "password cannot be less than 8 characters"],
       validate: {
         validator: function (val) {
           return val === this.password;

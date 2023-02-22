@@ -11,7 +11,7 @@ export const moviesList = [
       "tina mba",
     ],
     price: 4000,
-    image: "/images/ghetto.jpg",
+    image: "/images/movies/ghetto.jpg",
     id: "m1",
   },
   {
@@ -26,7 +26,7 @@ export const moviesList = [
       "kalu ikeagwu",
     ],
     price: 5500,
-    image: "/images/symphony.jpg",
+    image: "/images/movies/symphony.jpg",
     id: "m2",
   },
   {
@@ -46,7 +46,7 @@ export const moviesList = [
       "zubby michael",
     ],
     price: 5000,
-    image: "/images/shanty.webp",
+    image: "/images/movies/shanty.webp",
     id: "m3",
   },
   {
@@ -61,7 +61,7 @@ export const moviesList = [
       "basket mouth",
     ],
     price: 3500,
-    image: "/images/brotherhood.jpeg",
+    image: "/images/movies/brotherhood.jpeg",
     id: "m4",
   },
   {
@@ -76,7 +76,7 @@ export const moviesList = [
       "lolade okusanya",
     ],
     price: 5000,
-    image: "/images/ijakumo.jpg",
+    image: "/images/movies/ijakumo.jpg",
     id: "m5",
   },
   {
@@ -91,7 +91,7 @@ export const moviesList = [
       "tina mba",
     ],
     price: 5000,
-    image: "/images/breaded.jpg",
+    image: "/images/movies/breaded.jpg",
     id: "m6",
   },
   {
@@ -106,7 +106,7 @@ export const moviesList = [
       "lateef adedimeji",
     ],
     price: 5000,
-    image: "/images/prophetess.jpg",
+    image: "/images/movies/prophetess.jpg",
     id: "m7",
   },
   {
@@ -121,7 +121,7 @@ export const moviesList = [
       "rotimi salami",
     ],
     price: 5000,
-    image: "/images/lugard.jpg",
+    image: "/images/movies/lugard.jpg",
     id: "m8",
   },
   {
@@ -136,7 +136,7 @@ export const moviesList = [
       "genoveva umeh",
     ],
     price: 4000,
-    image: "/images/blood.jpg",
+    image: "/images/movies/blood.jpg",
     id: "m9",
   },
   {
@@ -152,7 +152,7 @@ export const moviesList = [
       "adesua etomi wellington",
     ],
     price: 4500,
-    image: "/images/far.webp",
+    image: "/images/movies/far.webp",
     id: "m10",
   },
 ];

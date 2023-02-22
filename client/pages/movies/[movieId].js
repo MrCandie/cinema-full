@@ -17,20 +17,22 @@ export default function Moviedetail() {
   useEffect(() => {
     async function getMovie() {
       try {
+        // responses
         const movieData = await getAllMovies();
         const response = await getWatchlists();
         const listData = response.data.data.lists;
 
+        // filtering user ;lists by user
         const userList = listData.filter((item) => {
-          const user = item.user.find((el) => el);
-          return user._id === movieCtx.userId;
+          const userId = item.user.find((el) => el)?.id;
+          return userId === movieCtx.userId;
         });
-
         movieCtx.setWatchlist(userList);
+
+        // getting movie details
         const movieDetail = movieData.data.data.movies;
-        const filteredMovie = movieDetail.find(
-          (movie) => movie._id === movieId
-        );
+        const filteredMovie = movieDetail.find((movie) => movie.id === movieId);
+
         setMovie(filteredMovie);
 
         const lists = movieCtx.list;
@@ -44,15 +46,15 @@ export default function Moviedetail() {
 
         const watchlistId = userList.find((item) => {
           const movie = item.movie.find((el) => el);
-          return movie._id === movieId;
+          return movie?._id === movieId;
         });
         setListId(watchlistId._id);
       } catch (err) {
-        console.log(err.message);
+        console.log(err);
       }
     }
     getMovie();
-  }, [movie]);
+  }, [movie, isList, listId]);
 
   return (
     <Fragment>

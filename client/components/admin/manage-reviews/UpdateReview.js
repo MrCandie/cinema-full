@@ -31,7 +31,6 @@ export default function UpdateReview({ reviews, setShow }) {
     try {
       setLoading(true);
       const response = await updateReview(reviews._id, reviewData);
-      console.log(response);
       setLoading(false);
       toast.success(response.data.status, {
         position: "top-right",

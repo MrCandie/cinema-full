@@ -40,10 +40,14 @@ export default function Register() {
     try {
       setLoading(true);
       const user = await register(data);
-      console.log(user);
       if (user.status === "success") {
         setLoading(false);
-        authCtx.login(user.token, user.data.user.role, user.data.user._id);
+        authCtx.login(
+          user.token,
+          user.data.user.role,
+          user.data.user._id,
+          user.data.user
+        );
         toast.success("Sign up successful");
 
         return;
@@ -82,7 +86,9 @@ export default function Register() {
             <label>confirm password</label>
             <input ref={passwordConfirmRef} type="password" />
           </div>
-          <button>sign up</button>
+          <button disabled={loading}>
+            {loading ? "Loading..." : "sign up"}
+          </button>
         </form>
         <div className={classes.register}>
           <button>sign up with google</button>

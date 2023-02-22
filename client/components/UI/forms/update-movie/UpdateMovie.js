@@ -32,7 +32,6 @@ export default function UpdateMovie({ data, setShow }) {
         autoClose: 500,
       });
       setShow(false);
-      console.log(response.data.status);
     } catch (err) {
       setLoading(false);
       setShow(false);

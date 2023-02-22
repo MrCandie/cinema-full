@@ -68,10 +68,37 @@ exports.getUser = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.uploadImage = catchAsync(async (req, res, next) => {
+  if (!req.files) {
+    return next(new AppError("no file uploaded", 400));
+  }
+  let productImage = req.files.image;
+  if (!productImage.mimetype.startsWith("image")) {
+    return next(new AppError("please upload an image", 400));
+  }
+  const maxSize = 10000000;
+  if (productImage.size > maxSize) {
+    return next(new AppError("please upload image smaller than 10mb"));
+  }
+
+  const imagePath = path.join(
+    __dirname,
+    "../../client/public/images/user/" + `${productImage.name}`
+  );
+  await productImage.mv(imagePath);
+
+  res.status(201).json({
+    status: "success",
+    image: {
+      src: `/images/${productImage.name}`,
+    },
+  });
+});
+
 exports.updateUser = catchAsync(async (req, res, next) => {
   const body = {
     name: req.body.name,
-    image: req.file,
+    image: req.body.image,
   };
   const user = await User.findByIdAndUpdate(req.params.id, body, {
     new: true,

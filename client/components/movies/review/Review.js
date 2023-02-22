@@ -31,9 +31,10 @@ export default function Review({ setShow, movie }) {
       movie: movie._id,
       user: user._id,
     };
-    console.log(data);
+
     try {
       const response = await createReview(movie._id, data);
+
       toast.success("Successful");
       setShow(false);
     } catch (err) {

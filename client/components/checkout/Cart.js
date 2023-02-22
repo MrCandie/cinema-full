@@ -16,10 +16,13 @@ export default function Cart({ setScreen }) {
     async function getCart() {
       try {
         const response = await getAllCarts(movieCtx.userId);
+
         if (response.status === 200) {
           const cartData = response.data.data.cart;
+
           const userCart = cartData.filter((item) => {
             const user = item.user.find((el) => el);
+
             return user._id === movieCtx.userId;
           });
           movieCtx.setCartItem(userCart);

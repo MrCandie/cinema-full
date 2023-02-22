@@ -1,21 +1,24 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import classes from "../movies/review/review.module.css";
 import Header from "../UI/forms/header/Header";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { forgotPassword } from "../../util/auth";
+import { forgotPassword, updatePassword } from "../../util/auth";
 import Spinner from "../UI/spinner/Spinner";
+import { CartContext } from "../../util/Context";
 
 export default function ChangePassword({ setShow }) {
   const [password, setPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [loading, setLoading] = useState(false);
+  const userCtx = useContext(CartContext);
 
   async function passwordHandler(e) {
     e.preventDefault();
 
-    if (!password || passwordConfirm) {
+    if (!password || !passwordConfirm || !currentPassword) {
       toast.error("password fields cannot be empty");
       return;
     }
@@ -23,10 +26,12 @@ export default function ChangePassword({ setShow }) {
     const data = {
       password,
       passwordConfirm,
+      currentPassword,
     };
 
     try {
       setLoading(true);
+      const response = await updatePassword(userCtx.userId, data);
 
       setLoading(false);
       toast.success(response.data.message);
@@ -46,6 +51,15 @@ export default function ChangePassword({ setShow }) {
         <Header>change password</Header>
         <div className={classes.container}>
           <form onSubmit={passwordHandler}>
+            <div className={classes.detail}>
+              <label>enter current password</label>
+              <input
+                placeholder="********"
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                value={currentPassword}
+                type="password"
+              />
+            </div>
             <div className={classes.detail}>
               <label>enter new password</label>
               <input
@@ -69,7 +83,9 @@ export default function ChangePassword({ setShow }) {
               <button onClick={() => setShow(false)} type="button">
                 cancel
               </button>
-              <button>Submit</button>
+              <button disabled={loading}>
+                {loading ? "Loading..." : "Submit"}
+              </button>
             </div>
           </form>
         </div>

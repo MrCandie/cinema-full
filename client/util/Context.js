@@ -197,13 +197,11 @@ export default function CartProvider({ children }) {
   async function addWatchList(id) {
     const response = await addWatchlists({ movie: id, user: userId });
     setWatchlists((movId) => [...movId, { movie: id, user: userId }]);
-
-    // console.log(id);
   }
 
   async function removeWatchlist(id) {
     const response = await deleteWatchlists(id);
-    console.log(response);
+
     setWatchlists((movId) => movId.filter((el) => el.id !== id));
   }
 

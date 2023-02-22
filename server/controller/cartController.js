@@ -5,13 +5,12 @@ const catchAsync = require("./../utils/catch-async");
 exports.setMovieId = (req, res, next) => {
   if (!req.body.movie) req.body.movie = req.params.movieId;
   if (!req.body.user) req.body.user = req.user.movieId;
-  console.log("working");
+
   next();
 };
 
 exports.postCart = catchAsync(async (req, res, next) => {
   const newCart = await Cart.create(req.body);
-  console.log(newCart);
 
   res.status(201).json({
     status: "success",
