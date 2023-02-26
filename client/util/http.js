@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/v1/movies";
+// const API_URL = "http://localhost:8080/api/v1/movies";
+const API_URL = "https://cinema-full.onrender.com/api/v1/movies";
 
 export async function getAllMovies() {
   const response = await axios.get(API_URL);
@@ -34,7 +35,8 @@ export async function deletemovie(id) {
 }
 
 // USER
-const API_URL_USER = "http://localhost:8080/api/v1/users";
+// const API_URL_USER = "http://localhost:8080/api/v1/users";
+const API_URL_USER = "https://cinema-full.onrender.com/api/v1/users";
 
 export async function getAllUsers() {
   const response = await axios.get(API_URL_USER);
@@ -78,7 +80,8 @@ export async function deleteUserAdmin(id) {
   return response;
 }
 
-const API_URL_REVIEW = "http://localhost:8080/api/v1/reviews";
+// const API_URL_REVIEW = "http://localhost:8080/api/v1/reviews";
+const API_URL_REVIEW = "https://cinema-full.onrender.com/api/v1/reviews";
 
 export async function createReview(id, data) {
   const response = await axios.post(API_URL + `/${id}/review`, data);
@@ -107,7 +110,8 @@ export async function deleteReview(id) {
 }
 
 // CART HANDLER
-const API_URL_CART = "http://localhost:8080/api/vi/carts";
+// const API_URL_CART = "http://localhost:8080/api/vi/carts";
+const API_URL_CART = "https://cinema-full.onrender.com/api/vi/carts";
 
 export async function postCart(id, data) {
   const response = await axios.post(API_URL + `/${id}/cart`, data);
@@ -130,7 +134,9 @@ export async function deleteCart(id) {
 }
 
 // watchlist handler;
-const API_URL_WATCHLIST = "http://localhost:8080/api/vi/watchlists";
+// const API_URL_WATCHLIST = "http://localhost:8080/api/vi/watchlists";
+const API_URL_WATCHLIST = "https://cinema-full.onrender.com/api/vi/watchlists";
+
 export async function addWatchlists(data) {
   const response = await axios.post(API_URL_WATCHLIST, data);
   return response;
